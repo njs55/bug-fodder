@@ -10,7 +10,7 @@ public class Sieve {
      * @param results - list of ints from 1 to n
      * @param prime - boolean array indicating primality
      */
-    
+
     public static void printsieve(int[] results, boolean[] prime) {
 	    System.out.print("> ");
 	    char c = ' ';
@@ -19,7 +19,7 @@ public class Sieve {
 	    // Put a (T) after each one if it has been marked
 	    // prime; put a (F) after one if it has  been marked
 	    // composite (not prime).
-	    
+
 	    for (int j = 0; j < results.length;) {
 		c = prime[j] ? 'T' : 'F';
 		System.out.print(results[j] + "(" + c + ") ");
@@ -33,13 +33,13 @@ public class Sieve {
      * Really, will print out any array.
      * @param results array of ints to print out
      */
-    
-    public static void PrintSieve(int[] results) {
+
+    public static void printSieve(int[] results) {
 
 	// As long as there are elements in the array,
 	// print it.  Otherwise, print "BLANK".
-	
-	if (results.length == 0 || results != null) {
+
+	if (results != null) {
 	    System.out.print("> ");
 	    for (int j = 1; j < results.length;) {
 		System.out.print(results[j] + " ");
@@ -53,7 +53,7 @@ public class Sieve {
     /**
      * @param s the size of the array to return
      */
-    
+
     public static boolean[] getTrueArray(int s) {
 	boolean toReturn[] = new boolean[s];
 	for (int j = 0; j < s; j++) {
@@ -61,7 +61,7 @@ public class Sieve {
 	}
 	// Return an all-true array.
 	return toReturn;
-	
+
     }
 
     /**
@@ -69,18 +69,18 @@ public class Sieve {
      * 1 to n and the same-size array which indicates their primality -
      * into a simple array of all prime values.
      * @param results an array with all ints from 1 to n
-     * @return int[] the prime numbers from 1 to n 
+     * @return int[] the prime numbers from 1 to n
      */
-    
+
     public static int[] convertResults(int[] results, boolean prime[] ) {
 
 	// Create an ArrayList.	 If a value is true for primality,
 	// add it to the array list.
-	
+
 	ArrayList<Integer> actual = new ArrayList<Integer>();
 	for (int j = 0; j < results.length; j++) {
 	    if (prime[j]) {
-		actual.add(new Integer(j + 1));
+		actual.add(Integer.valueOf(j + 1));
 	    }
 	}
 
@@ -93,7 +93,7 @@ public class Sieve {
 	// the toReturn variable is an int array, but Java will
 	// automatically convert thanks to autoboxing as long as
 	// you are using Java 1.5 or higher.
-	
+
 	int[] toReturn = new int[actual.size()];
 
 	for (int j = 0; j < actual.size(); j++) {
@@ -109,7 +109,7 @@ public class Sieve {
      * @param results array of ints starting at 1
      * @return int[] array of all prime ints
      */
-    
+
     public static int[] calculateSieve(int[] results) {
 	int ptr = 1; // means value 2
 	int size = results.length;
@@ -122,7 +122,7 @@ public class Sieve {
 	    // Otherwise, loop through and look for any multiples of
 	    // it, which should now be marked false
 	    if (prime[ptr] == true) {
-		int val = results[ptr]; // value pointed at 
+		int val = results[ptr]; // value pointed at
 		int localPtr = ptr; // secondary pointer
 		int counter = 2; // multiple counter
 		int comp = 0; // computer value
@@ -134,7 +134,7 @@ public class Sieve {
 
 		// These numbers are composite, so mark their prime[localPtr]
 		// value as false.
-		
+
 		while (localPtr <= size) {
 		    comp = val * counter;
 		    // System.out.println("\t" + val + " * " + counter + " = " + comp);
@@ -145,7 +145,7 @@ public class Sieve {
 		    }
 		    counter++;
 		}
-	    } 
+	    }
 	    ptr++;
 	}
 	// Debug-print the behind the scenes sieve values
@@ -162,7 +162,7 @@ public class Sieve {
      * @param maxSize - the size of the array to return
      * @return int[] array of correct format, as indicated above
      */
-    
+
     public static int[] generateSieve(int maxSize) {
 	int size = maxSize;
 	int[] toReturn = new int[maxSize];
@@ -173,12 +173,12 @@ public class Sieve {
 	    toReturn[j - 1] = j;
 	}
 	return toReturn;
-	    
+
     }
 
     /**
      * Based on args provided, calculate the maximum value to calculate.
-     * @param args first element 
+     * @param args first element
      * @return maximum size of array
      */
     public static int calculateMax(String[] args) {
@@ -191,13 +191,13 @@ public class Sieve {
 	    } else {
 	}
 	} else {
-	    // User forgot to enter an argument!  
-	    new IllegalArgumentException();
+	    // User forgot to enter an argument!
+	    throw new IllegalArgumentException();
 	}
 	return toReturn;
     }
-	    
-    
+
+
     /**
      * Main method.  Accepts one argument, which should be parseable
      * as an integer, ignores any other arguments.  This argument is
@@ -206,7 +206,7 @@ public class Sieve {
      * the user meant 100.
      * @param args maximum value for sieve as first arg
      */
-    
+
     public static void main(String[] args) {
 	System.out.println("Sieve of Eratosthenes");
 
@@ -218,7 +218,7 @@ public class Sieve {
 	// program should assume that the user meant 100.
 
 	// Other arguments past the first will be ignored.
-	
+
 	try {
 	    _max = calculateMax(args);
 	} catch (Exception ex) {
@@ -226,11 +226,11 @@ public class Sieve {
 	    System.out.println("Assuming you meant to type 100...");
 	    _max = 100;
 	}
-	
+
 	// Calculate sieve and print it out
 	int[] sieve = generateSieve(_max);
 	int[] results = calculateSieve(sieve);
-	PrintSieve(results);
+	printSieve(results);
     }
-    
+
 }
