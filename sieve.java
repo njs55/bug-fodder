@@ -39,7 +39,7 @@ public class Sieve {
 	// As long as there are elements in the array,
 	// print it.  Otherwise, print "BLANK".
 
-	if (results != null) {
+	if (results.length > 1) {
 	    System.out.print("> ");
 	    for (int j = 1; j < results.length;) {
 		System.out.print(results[j] + " ");
@@ -187,16 +187,12 @@ public class Sieve {
 	      if (args.length > 0) {
 	          toReturn = (int) Integer.parseInt(args[0]);
 	          if (toReturn < 1) {
-	      	      // User did not enter a valid integer
-	      	      System.out.println("You forgot to enter a valid integer (> 0)!");
-                System.out.println("Assuming you meant to type 100...");
-                toReturn = 100;
+                // User did not enter a valid integer
+                throw new IllegalArgumentException();
 	          }
 	      } else {
-	          // User forgot to enter an argument!
-	          System.out.println("You forgot to enter a valid integer (> 0)!");
-            System.out.println("Assuming you meant to type 100...");
-            toReturn = 100;
+            // User forgot to enter an argument!
+            throw new IllegalArgumentException();
 	      }
 	      return toReturn;
     }
@@ -216,12 +212,20 @@ public class Sieve {
 
   // Get the passed-in argument of the maximum value for
   // the sieve to calculate the primality of.
+
   // If the user did not enter any arguments, or the argument
   // is not a positive integer (1 or greater), then the
   // program should assume that the user meant 100.
+
   // Other arguments past the first will be ignored.
-  // calculateMax() handles these requirments
-  _max = calculateMax(args);
+
+  try {
+      _max = calculateMax(args);
+  } catch (IllegalArgumentException ex) {
+      System.out.println("You forgot to enter a valid integer (> 0)!");
+      System.out.println("Assuming you meant to type 100...");
+      _max = 100;
+  }
 
 	// Calculate sieve and print it out
 	int[] sieve = generateSieve(_max);
