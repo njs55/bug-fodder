@@ -13,7 +13,7 @@ public class Sieve {
 
     public static void printsieve(int[] results, boolean[] prime) {
 	    System.out.print("> ");
-	    char c = ' ';
+	    char charHolder = ' ';
 
 	    // Just loop through the array and print the values.
 	    // Put a (T) after each one if it has been marked
@@ -21,8 +21,8 @@ public class Sieve {
 	    // composite (not prime).
 
 	    for (int j = 0; j < results.length;) {
-		c = prime[j] ? 'T' : 'F';
-		System.out.print(results[j] + "(" + c + ") ");
+		charHolder = prime[j] ? 'T' : 'F';
+		System.out.print(results[j] + "(" + charHolder + ") ");
 		j++;
 	    }
 	    System.out.println();
@@ -51,12 +51,13 @@ public class Sieve {
     }
 
     /**
-     * @param s the size of the array to return
+     * Return boolean array of Trues.
+     * @param size is the size of the array to return
      */
 
-    public static boolean[] getTrueArray(int s) {
-	boolean toReturn[] = new boolean[s];
-	for (int j = 0; j < s; j++) {
+    public static boolean[] getTrueArray(int size) {
+	boolean[] toReturn = new boolean[size];
+	for (int j = 0; j < size; j++) {
 	    toReturn[j] = true;
 	}
 	// Return an all-true array.
@@ -72,7 +73,7 @@ public class Sieve {
      * @return int[] the prime numbers from 1 to n
      */
 
-    public static int[] convertResults(int[] results, boolean prime[] ) {
+    public static int[] convertResults(int[] results, boolean[] prime ) {
 
 	// Create an ArrayList.	 If a value is true for primality,
 	// add it to the array list.
@@ -182,19 +183,22 @@ public class Sieve {
      * @return maximum size of array
      */
     public static int calculateMax(String[] args) {
-	int toReturn = -1; // default (invalid) value
-	if (args.length > 0) {
-	    toReturn = (int) Integer.parseInt(args[0]);
-	    if (toReturn < 1) {
-		// User did not enter a valid integer
-		throw new IllegalArgumentException();
-	    } else {
-	}
-	} else {
-	    // User forgot to enter an argument!
-	    throw new IllegalArgumentException();
-	}
-	return toReturn;
+	      int toReturn = -1; // default (invalid) value
+	      if (args.length > 0) {
+	          toReturn = (int) Integer.parseInt(args[0]);
+	          if (toReturn < 1) {
+	      	      // User did not enter a valid integer
+	      	      System.out.println("You forgot to enter a valid integer (> 0)!");
+                System.out.println("Assuming you meant to type 100...");
+                toReturn = 100;
+	          }
+	      } else {
+	          // User forgot to enter an argument!
+	          System.out.println("You forgot to enter a valid integer (> 0)!");
+            System.out.println("Assuming you meant to type 100...");
+            toReturn = 100;
+	      }
+	      return toReturn;
     }
 
 
@@ -210,22 +214,14 @@ public class Sieve {
     public static void main(String[] args) {
 	System.out.println("Sieve of Eratosthenes");
 
-	// Get the passed-in argument of the maximum value for
-	// the sieve to calculate the primality of.
-
-	// If the user did not enter any arguments, or the argument
-	// is not a positive integer (1 or greater), then the
-	// program should assume that the user meant 100.
-
-	// Other arguments past the first will be ignored.
-
-	try {
-	    _max = calculateMax(args);
-	} catch (Exception ex) {
-	    System.out.println("You forgot to enter a valid integer (> 0)!");
-	    System.out.println("Assuming you meant to type 100...");
-	    _max = 100;
-	}
+  // Get the passed-in argument of the maximum value for
+  // the sieve to calculate the primality of.
+  // If the user did not enter any arguments, or the argument
+  // is not a positive integer (1 or greater), then the
+  // program should assume that the user meant 100.
+  // Other arguments past the first will be ignored.
+  // calculateMax() handles these requirments
+  _max = calculateMax(args);
 
 	// Calculate sieve and print it out
 	int[] sieve = generateSieve(_max);

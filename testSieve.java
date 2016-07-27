@@ -5,9 +5,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class testSieve {
-  //used to assert that a certain exception has been thrown
-  @Rule
-  public final ExpectedException exception = ExpectedException.none();
 
   //ensure calculateMax still returns the int of entered argument
   @Test
@@ -19,22 +16,18 @@ public class testSieve {
   
   //ensure calculateMax throws an exception when it is not passed an argument
   @Test
-  public void testCalculateMaxException() {
+  public void testCalculateMaxNoArgument() {
     Sieve sieve = new Sieve();
     String[] testStringArr = new String[0];
-    //the exception we want thrown
-    exception.expect(IllegalArgumentException.class);
-    sieve.calculateMax(testStringArr);
+    assertEquals( 100 ,sieve.calculateMax(testStringArr));
   }
   
   //ensure calculateMax throws an exception when it is passed "0"
   @Test
-  public void testCalculateMaxExceptionZero() {
+  public void testCalculateMaxArguementZero() {
     Sieve sieve = new Sieve();
     String[] testStringArr = {"0"};
-    //the exception we want thrown
-    exception.expect(IllegalArgumentException.class);
-    sieve.calculateMax(testStringArr);
+    assertEquals( 100 ,sieve.calculateMax(testStringArr));
   }
   
   //ensure calculateMax still returns the int of entered argument
